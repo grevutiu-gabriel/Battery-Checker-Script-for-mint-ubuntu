@@ -17,7 +17,7 @@
 #
 while true;
 do
-echo "BATTERY POWER CHECK"
+#echo "BATTERY POWER CHECK"
 
 chekpc=75
 chekpc1=90
