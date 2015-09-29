@@ -19,16 +19,17 @@ while true;
 do
 echo "BATTERY POWER CHECK"
 
-chekpc=18
+chekpc=75
+chekpc1=90
 state=`upower -i /org/freedesktop/UPower/devices/battery_BAT0 | grep "state" | awk '{print $2}'`
 pc=`upower -i /org/freedesktop/UPower/devices/battery_BAT0 | grep "percentage" | awk '{print $2}' | cut -d'%' -f1`
 
 if [ "$state" == "discharging" ]
 then
-	echo "Battery is DisCharging and is having $pc%"
+	#echo "Battery is DisCharging and is having $pc%"
 	if [ "$pc" -le "$chekpc" ]
 	then
-		echo "It is less than 18%"
+		#echo "It is less than 18%"
 		#play low battery sound while it is not charging
 		#Check if Sound is Mute or Not
 		#If MUTE then unmute it and play low battery sound
@@ -37,7 +38,7 @@ then
 		vol_level=` amixer sget 'Master' | grep "Mono" | grep "dB" | cut -d"[" -f2 | cut -d "%" -f1`
 		while [ "$state" != "charging" ]
 		do
-			echo "Connect Charger!" 
+			#echo "Connect Charger!" 
 			
 			state=`upower -i /org/freedesktop/UPower/devices/battery_BAT0 | grep "state" | awk '{print $2}'`				       
 			if [ "$vol_level" -lt "80" ]
@@ -62,5 +63,45 @@ then
 	fi
 fi
 
-sleep 300
+if [ "$state" == "charging" ]
+then
+	#echo "Battery is DisCharging and is having $pc%"
+	if [ "$pc" -ge "$chekpc1" ]
+	then
+		#echo "It is less than 18%"
+		#play low battery sound while it is not charging
+		#Check if Sound is Mute or Not
+		#If MUTE then unmute it and play low battery sound
+		# When charger is connected then set backto original state of volume
+		OnOROff=` amixer sget 'Master' | grep "Mono" | grep "dB" | cut -d"[" -f4 | cut -d"]" -f1`
+		vol_level=` amixer sget 'Master' | grep "Mono" | grep "dB" | cut -d"[" -f2 | cut -d "%" -f1`
+		while [ "$state" != "discharging" ]
+		do
+			#echo "Disconnect Charger!" 
+			
+			state=`upower -i /org/freedesktop/UPower/devices/battery_BAT0 | grep "state" | awk '{print $2}'`				       
+			if [ "$vol_level" -lt "80" ]
+			then
+				 echo `amixer sset 'Master' 80%` > /dev/null
+			fi
+
+			if [ "$OnOROff" == "off" ]
+			then
+				OnOROff="wasOFF"
+				`amixer -q -D pulse set Master toggle`
+			fi
+			`play  /usr/share/sounds/High-battery-sound.mp3 2> /dev/null`
+		done 
+		#set original volume level and OnOROff state
+		echo `amixer sset 'Master' "$vol_level"%` > /dev/null
+		if [ "$OnOROff" == "wasOFF" ]
+		then
+			`amixer -q -D pulse set Master toggle`
+		fi
+		
+	fi
+fi
+
+
+sleep 60
 done
