@@ -48,7 +48,7 @@ In order to start running script in the moment of booting perform following step
 `crontab -e`
 and add in file that will be opened:
 
-`@reboot bash /usr/share/sounds/BatteryCheckerScript.sh
+`@reboot bash /usr/share/sounds/BatteryCheckerScript.sh`
 
 then close and reboot computer.
 
