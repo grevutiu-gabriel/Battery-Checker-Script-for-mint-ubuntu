@@ -52,3 +52,7 @@ and add in file that will be opened:
 
 then close and reboot computer.
 
+#Start script at user login
+
+![alt tag](https://raw.githubusercontent.com/grevutiu-gabriel/Battery-Checker-Script-for-mint-ubuntu/master/start_script_at_user_login.png)
+
