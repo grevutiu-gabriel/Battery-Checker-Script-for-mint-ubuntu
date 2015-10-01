@@ -51,7 +51,7 @@ then
 				OnOROff="wasOFF"
 				`amixer -q -D pulse set Master toggle`
 			fi
-			`play  /usr/share/sounds/Low-battery-sound.mp3 2> /dev/null`
+			`sox /usr/share/sounds/Low.mp3 -t pulseaudio 2> /dev/null`
 		done 
 		#set original volume level and OnOROff state
 		echo `amixer sset 'Master' "$vol_level"%` > /dev/null
@@ -90,7 +90,7 @@ then
 				OnOROff="wasOFF"
 				`amixer -q -D pulse set Master toggle`
 			fi
-			`play  /usr/share/sounds/High-battery-sound.mp3 2> /dev/null`
+			`sox /usr/share/sounds/High.mp3 -t pulseaudio 2> /dev/null`
 		done 
 		#set original volume level and OnOROff state
 		echo `amixer sset 'Master' "$vol_level"%` > /dev/null
