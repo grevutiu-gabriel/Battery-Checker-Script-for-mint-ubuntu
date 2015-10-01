@@ -20,6 +20,8 @@ Hope you find this useful.
       + `sudo apt-get install sox`
     + add support for .mp3 format using:
       + `sudo apt-get install sox libsox-fmt-mp3`
+    + add support for pulseaudio sound server in order to accept sound input from one or more sources, use:
+      + `sudo apt-get install libsox-fmt-all`
     
 # Get the script
 ` git clone https://github.com/grevutiu-gabriel/Battery-Checker-Script-for-mint-ubuntu.git`
@@ -52,7 +54,14 @@ and add in file that will be opened:
 
 then close and reboot computer.
 
+Disadvantage: if another program play sound (for example Firefox) script cannot play warning sound.
+
 #Start script at user login
 
+In Ubuntu press ALT+F2 and add "gnome-session-properties". In testbox with label 'Name: ' add a name; in textbox with label 'Command: ' add path to script; in textbox with label 'Comment: ' type a comment.
+
+Advantage: is possible to play warning sound in the same time with another program.
+
 ![alt tag](https://raw.githubusercontent.com/grevutiu-gabriel/Battery-Checker-Script-for-mint-ubuntu/master/start_script_at_user_login.png)
+
 
