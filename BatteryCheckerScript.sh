@@ -41,9 +41,9 @@ then
 			#echo "Connect Charger!" 
 			
 			state=`upower -i /org/freedesktop/UPower/devices/battery_BAT0 | grep "state" | awk '{print $2}'`				       
-			if [ "$vol_level" -lt "80" ]
+			if [ "$vol_level" -lt "20" ]
 			then
-				 echo `amixer sset 'Master' 80%` > /dev/null
+				 echo `amixer sset 'Master' 30%` > /dev/null
 			fi
 
 			if [ "$OnOROff" == "off" ]
@@ -52,6 +52,7 @@ then
 				`amixer -q -D pulse set Master toggle`
 			fi
 			`sox /usr/share/sounds/Low.mp3 -t pulseaudio 2> /dev/null`
+			sleep 2
 		done 
 		#set original volume level and OnOROff state
 		echo `amixer sset 'Master' "$vol_level"%` > /dev/null
@@ -80,9 +81,9 @@ then
 			#echo "Disconnect Charger!" 
 			
 			state=`upower -i /org/freedesktop/UPower/devices/battery_BAT0 | grep "state" | awk '{print $2}'`				       
-			if [ "$vol_level" -lt "80" ]
+			if [ "$vol_level" -lt "20" ]
 			then
-				 echo `amixer sset 'Master' 80%` > /dev/null
+				 echo `amixer sset 'Master' 30%` > /dev/null
 			fi
 
 			if [ "$OnOROff" == "off" ]
@@ -91,6 +92,7 @@ then
 				`amixer -q -D pulse set Master toggle`
 			fi
 			`sox /usr/share/sounds/High.mp3 -t pulseaudio 2> /dev/null`
+			sleep 2
 		done 
 		#set original volume level and OnOROff state
 		echo `amixer sset 'Master' "$vol_level"%` > /dev/null
